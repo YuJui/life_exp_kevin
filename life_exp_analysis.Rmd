@@ -19,7 +19,7 @@ data("gapminder_unfiltered")
 gapminder_unfiltered
 ```
 
-#plot2
+#plot
 ```{r}
 
 ```
