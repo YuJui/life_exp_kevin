@@ -13,14 +13,48 @@ knitr::opts_chunk$set(echo = TRUE)
 Here, we will examine the famous relationship between time and maximum life expectancy as observed in Oeppen and Vaunel(2002)
 
 # Analysis
+
+loads the data
 ```{r}
 library(gapminder)
 data("gapminder_unfiltered")
 gapminder_unfiltered
 ```
 
-#plot
+calculate maximum
 ```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+#plot
+
+```{r}
+library(gapminder)
+library(ggplot2)
+library(dplyr)
+data("gapminder_unfiltered")
+
+gapminder_filtered <- data.frame(country=c(NA), year=c(1950:2007), lifeExp=c(NA))
+
+for(j in 1:58){
+  for(i in 1950:2007){
+   if(gapminder_filtered[j,2]==i){
+      gapminder_filtered_temp_i <- gapminder_unfiltered %>% select(country,year,lifeExp) %>% arrange(year) %>% filter(year==i) %>% arrange(desc(lifeExp))
+      gapminder_filtered_temp_i$country <- as.character(gapminder_filtered_temp_i$country)
+      gapminder_filtered[j,] <- gapminder_filtered_temp_i[1,]}
+    }}
+
+ggplot(gapminder_filtered, aes(x=gapminder_filtered$year, y=gapminder_filtered$lifeExp))+geom_smooth(method='lm',se=FALSE) + geom_point(aes(colour=gapminder_filtered$country)) + xlab("Year") + ylab("Maximum Life Expectancy") +scale_colour_discrete(name  ="Country")
 
 ```
 
